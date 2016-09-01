@@ -27,7 +27,21 @@ public class Robot extends SampleRobot {
     }
 
     public void autonomous() {
-    	
+    	long delay = 0;
+    	dt.setHeadingHold(true);
+    	while (isOperatorControl() && isEnabled()) {
+        	long time = Common.time();
+    		delay = (long)(time + (1000/Constants.REFRESH_RATE));
+        	
+    		dt.autoDrive();
+    		dt.rotateTo(30);
+    		//Loop wait
+    		double wait = (delay-Common.time())/1000.0;
+    		if (wait < 0) {
+    			wait = 0;
+    		}
+    		Timer.delay(wait);
+    	}
     }
 
     public void operatorControl() {
