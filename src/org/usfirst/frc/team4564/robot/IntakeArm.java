@@ -24,7 +24,7 @@ public class IntakeArm
 	{
 		Forward = new Solenoid(Constants.SOL_INTAKE_FORWARD);
 		Backward = new Solenoid(Constants.SOL_INTAKE_BACKWARD);
-		Intake = new Spark(Constants.PWM_INTAKE_MOTOR);
+//		Intake = new Spark(Constants.PWM_INTAKE_MOTOR);
 		
 	}
 	public void up()
