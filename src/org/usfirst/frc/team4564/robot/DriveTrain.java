@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 public class DriveTrain extends RobotDrive {
 	
 	//Drive Motors
-	private static Talon FrontL; 
-	private static Talon FrontR; 
+	private static Talon FrontL = new Talon(Constants.PWM_DRIVE_L);
+	private static Talon FrontR = new Talon(Constants.PWM_DRIVE_R);
 	// Encoder Definitions
 	public Encoder encoder; 
 	
@@ -39,28 +39,21 @@ public class DriveTrain extends RobotDrive {
 		super(FrontR, FrontL);
 		encoder = new Encoder(Constants.DIO_DRIVE_FR_ENCODER_A, Constants.DIO_DRIVE_FR_ENCODER_B, 
 			false, EncodingType.k1X);
-		Common.debug("PID init");
 	
 		//Distance PID
 		distancePID = new PID(Constants.DRIVE_P, Constants.DRIVE_I, Constants.DRIVE_D, false, "distance");
-		Common.debug("DistancePID");
 
 		//Gyro definition
 		heading = new Heading(Constants.GYRO_P, Constants.GYRO_I, Constants.GYRO_D, Constants.GYRO_SENSITIVITY);
-		Common.debug("Heading");
 		
 		//Object to handle tracking and controlling current autonomous actions.
 		actionHandler = new ActionHandler();
-		Common.debug("actionHandler");
 
-		FrontR = new Talon(Constants.PWM_DRIVE_R);
-		FrontL = new Talon(Constants.PWM_DRIVE_L);
 		init();
 	}
 	
 	// Initialize drivetrain systems
 	public void init() {
-		Common.debug("Drive Train init");
 		encoder.setDistancePerPulse(1.0/Constants.COUNTS_PER_INCH);
 		encoder.reset();
 		heading.reset();

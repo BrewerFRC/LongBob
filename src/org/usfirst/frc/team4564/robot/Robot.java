@@ -14,10 +14,8 @@ public class Robot extends SampleRobot {
 	
 
     public void robotInit() {
-    	Common.debug("error?");
-    	dt = new DriveTrain();
     	table = NetworkTable.getTable("dashTable");
-    	Common.debug("hello");
+    	dt = new DriveTrain();
     }
 
     public void autonomous() {
