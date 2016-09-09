@@ -11,11 +11,13 @@ public class Robot extends SampleRobot {
 	public static Xbox j1 = new Xbox(1);
 	public static NetworkTable table;
 	DriveTrain dt;
+	IntakeArm intake;
 	
 
     public void robotInit() {
     	table = NetworkTable.getTable("dashTable");
     	dt = new DriveTrain();
+    	intake = new IntakeArm();
     }
 
     public void autonomous() {
@@ -38,12 +40,24 @@ public class Robot extends SampleRobot {
 
     public void operatorControl() {
     	dt.init();
+    	boolean a = false;
     	long delay = 0;
     	while (isOperatorControl() && isEnabled()) {
         	long time = Common.time();
     		delay = (long)(time + (1000/Constants.REFRESH_RATE));
         	
 			dt.baseDrive(-j.leftY(), j.leftX());
+			if(j.whenA())
+			{
+				
+				a = !a;
+				
+			}
+			if(a){
+				intake.intake();
+			}else{
+				intake.stop_motor();
+			}
     		Common.dashNum("encoderA", dt.encoder.getRaw());
     		//Loop wait
     		double wait = (delay-Common.time())/1000.0;

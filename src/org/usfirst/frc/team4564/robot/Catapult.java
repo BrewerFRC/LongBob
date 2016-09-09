@@ -4,28 +4,22 @@ import edu.wpi.first.wpilibj.Solenoid;
 
 public class Catapult {
 	
-	Solenoid Forward;
-	Solenoid Backward;
+	Solenoid sol0;
+	Solenoid sol1;
 	
 	public Catapult(){
-		Forward = new Solenoid(Constants.SOL_CATAPULT_FORWARD);
-		Backward = new Solenoid(Constants.SOL_CATAPULT_BACKWARD);
+		sol0 = new Solenoid(Constants.SOL_CATAPULT_0);
+		sol1 =  new Solenoid(Constants.SOL_CATAPULT_1);
 		
 	}
 	public void fire()
 	{
-		Forward.set(true);
-		Backward.set(false);
+		sol0.set(true);
+		sol1.set(true);
 	}
 	public void reset()
 	{
-		Forward.set(false);
-		Backward.set(true);
+		sol0.set(false);
+		sol1.set(false);
 	}
-	public void stop()
-	{
-		Forward.set(false);
-		Backward.set(false);
-	}
-	
 }

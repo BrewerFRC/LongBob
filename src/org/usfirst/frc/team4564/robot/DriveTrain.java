@@ -2,14 +2,14 @@ package org.usfirst.frc.team4564.robot;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 
 public class DriveTrain extends RobotDrive {
 	
 	//Drive Motors
-	private static Talon FrontL = new Talon(Constants.PWM_DRIVE_L);
-	private static Talon FrontR = new Talon(Constants.PWM_DRIVE_R);
+	private static Spark FrontL = new Spark(Constants.PWM_DRIVE_L);
+	private static Spark FrontR = new Spark(Constants.PWM_DRIVE_R);
 	// Encoder Definitions
 	public Encoder encoder; 
 	
