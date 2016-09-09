@@ -36,7 +36,7 @@ public class Constants {
 	//Solenoids
 	public static int SOL_CATAPULT_0 = 7;
 	public static int SOL_CATAPULT_1 = 8;
-	public static int SOL_INTAKE_FORWARD = 2;
-	public static int SOL_INTAKE_BACKWARD = 3;
+	public static int SOL_INTAKE_FORWARD = 0;
+	public static int SOL_INTAKE_BACKWARD = 1;
 		
 }

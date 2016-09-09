@@ -6,9 +6,9 @@ import edu.wpi.first.wpilibj.Spark;
 public class IntakeArm 
 {
 	
-	Solenoid Forward;
-	Solenoid Backward;
-	Spark Intake;
+	Solenoid forward;
+	Solenoid backward;
+	Spark intake;
 	
 	private static final double ARM_POT_LOW = 1;
 	private static final double ARM_POT_HIGH = 3;
@@ -22,33 +22,33 @@ public class IntakeArm
 	
 	public IntakeArm()
 	{
-		Forward = new Solenoid(Constants.SOL_INTAKE_FORWARD);
-		Backward = new Solenoid(Constants.SOL_INTAKE_BACKWARD);
-		Intake = new Spark(Constants.PWM_INTAKE_MOTOR);
+		forward= new Solenoid(Constants.SOL_INTAKE_FORWARD);
+		backward= new Solenoid(Constants.SOL_INTAKE_BACKWARD);
+		intake = new Spark(Constants.PWM_INTAKE_MOTOR);
 		
 	}
 	public void up()
 	{
-		Forward.set(true);
-		Backward.set(false);
+		forward.set(true);
+		backward.set(false);
 	}
 	public void down()
 	{
-		Forward.set(false);
-		Backward.set(true);
+		forward.set(false);
+		backward.set(true);
 	}
 	public void intake()
 	{
-		Intake.set(.4);
+		intake.set(.4);
 	}
-	public void stop_motor()
+	public void stopMotor()
 	{
-		Intake.set(0);
+		intake.set(0);
 	}
 	public void stop()
 	{
-		Forward.set(false);
-		Backward.set(false);
+		forward.set(false);
+		backward.set(false);
 	}
 	public void setIntakePosition(int position)
 	{
