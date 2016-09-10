@@ -6,14 +6,14 @@ import edu.wpi.first.wpilibj.Spark;
 public class IntakeArm 
 {
 	
-	Solenoid forward;
-	Solenoid backward;
-	Spark intake;
+	private Solenoid forward;
+	private Solenoid backward;
+	private Spark intake;
 	
 	private static final double ARM_POT_LOW = 1;
 	private static final double ARM_POT_HIGH = 3;
-	public AnalogInput potentiometer = new AnalogInput(Constants.ANA_POT_ARM);
-	public double target;
+	private AnalogInput potentiometer = new AnalogInput(Constants.ANA_POT_ARM);
+	private double target;
 
 	
 	public double getPotentiometerVoltage() {
@@ -29,17 +29,17 @@ public class IntakeArm
 	}
 	public void up()
 	{
-		forward.set(true);
-		backward.set(false);
-	}
-	public void down()
-	{
 		forward.set(false);
 		backward.set(true);
 	}
-	public void intake()
+	public void down()
 	{
-		intake.set(.4);
+		forward.set(true);
+		backward.set(false);
+	}
+	public void intake(double power)
+	{
+		intake.set(power);
 	}
 	public void stopMotor()
 	{

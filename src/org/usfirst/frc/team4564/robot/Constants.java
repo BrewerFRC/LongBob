@@ -34,8 +34,8 @@ public class Constants {
 	public static final double GYRO_SENSITIVITY = 0.00669;
 	
 	//Solenoids
-	public static int SOL_CATAPULT_0 = 7;
-	public static int SOL_CATAPULT_1 = 8;
+	public static int SOL_CATAPULT_0 = 6;
+	public static int SOL_CATAPULT_1 = 7;
 	public static int SOL_INTAKE_FORWARD = 0;
 	public static int SOL_INTAKE_BACKWARD = 1;
 		

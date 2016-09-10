@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4564.robot;
 
 public class PID {
+	private Robot robot;
 	//Terms
 	private double p;
 	private double i;
@@ -22,6 +23,7 @@ public class PID {
 	private double lastCalc;
 	
 	public PID(double p, double i, double d, boolean forward, String name) {
+		robot = Robot.getInstance();
 		this.p = p;
 		this.i = i;
 		this.d = d;
@@ -29,15 +31,15 @@ public class PID {
 		this.forward = forward;
 		this.deltaTime = (long)(1.0/Constants.REFRESH_RATE*1000);
 		
-		Robot.table.putNumber(name + "P", p);
-		Robot.table.putNumber(name + "I", i);
-		Robot.table.putNumber(name + "D", d);
+		robot.getDashTable().putNumber(name + "P", p);
+		robot.getDashTable().putNumber(name + "I", i);
+		robot.getDashTable().putNumber(name + "D", d);
 	}
 	
 	public void update() {
-		this.p = Robot.table.getNumber(name + "P", this.p);
-		this.i = Robot.table.getNumber(name + "I", this.i);
-		this.d = Robot.table.getNumber(name + "D", this.d);
+		this.p = robot.getDashTable().getNumber(name + "P", this.p);
+		this.i = robot.getDashTable().getNumber(name + "I", this.i);
+		this.d = robot.getDashTable().getNumber(name + "D", this.d);
 	}
 	
 	public void setMin(double min) {

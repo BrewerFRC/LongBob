@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.Solenoid;
 
 public class Catapult {
 	
-	Solenoid sol0;
-	Solenoid sol1;
+	private Solenoid sol0;
+	private Solenoid sol1;
 	
 	public Catapult(){
 		sol0 = new Solenoid(Constants.SOL_CATAPULT_0);

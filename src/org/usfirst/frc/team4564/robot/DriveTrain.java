@@ -11,16 +11,16 @@ public class DriveTrain extends RobotDrive {
 	private static Spark FrontL = new Spark(Constants.PWM_DRIVE_L);
 	private static Spark FrontR = new Spark(Constants.PWM_DRIVE_R);
 	// Encoder Definitions
-	public Encoder encoder; 
+	private Encoder encoder; 
 	
 	//Distance PID
-	public PID distancePID; 
+	private PID distancePID; 
 	
 	//Gyro definition
-	public Heading heading;
+	private Heading heading;
 	
 	//Object to handle tracking and controlling current autonomous actions.
-	public ActionHandler actionHandler = new ActionHandler();
+	private ActionHandler actionHandler = new ActionHandler();
 	
 	//Accel Curve Speeds
 	double driveSpeed = 0;
@@ -244,6 +244,14 @@ public class DriveTrain extends RobotDrive {
 		drive = driveAccelCurve(drive, driveAccel );
 		turn = turnAccelCurve(turn, turnAccel);
 		setDrive(drive, turn);
+	}
+	
+	public Encoder getEncoder() {
+		return encoder;
+	}
+	
+	public ActionHandler getActionHandler() {
+		return actionHandler;
 	}
 
 }
