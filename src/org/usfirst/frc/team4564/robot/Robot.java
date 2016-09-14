@@ -77,7 +77,7 @@ public class Robot extends SampleRobot {
 			else {
 				intake.stopMotor();
 			}
-			
+			intake.update();
 			//Catapult
 			if(j.Y() && j.rightTriggerPressed())
 			{

@@ -40,35 +40,10 @@ public class VisionTracking {
 		
 		// Drive forward/backward until proper distance from tower
 		// ***** Insert Ultrasonic logic here
-		if (shoot) {
-			backward = false;
-		}
-		distance = 0/*Robot.bat.getShooterDistance()*/;   
-		double diff = (backward ? OUTER_TARGET_DISTANCE : TARGET_DISTANCE) - distance;
-		// Determine appropriate drive speed based on distance form tower
-		if (Math.abs(diff) < 2) {
-			speed = 0.0;  //Stop driving, we are within shooting range
-			if (!shoot) {
-				backward = !backward;
-			}
-		} else {
-			if (Math.abs(diff) < 18) {  //Scale speed of approach when we are close
-				speed = 0.35;
-				if (backward) {
-					speed = 0.5;
-				}
-			} else {
-				speed = 0.75;
-			}
-			if (diff < 0) {  //Determine what direction to travel, either toward or away from tower
-				speed = speed * -1;  // Negative value drives toward tower
-			}
-		}
-		
 		// Is it time to shoot or keep aiming?
+		speed = -0.3;
 		boolean thrown = false;
-		if (shoot && speed == 0.0) {    // If we are aligned and not driving and...
-			
+		if (shoot ) {    // If we are aligned and not driving and...
 				Robot.getInstance().getCatapult().fire();
 				thrown = true;
 

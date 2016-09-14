@@ -3,7 +3,6 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Spark;
-im
 
 public class IntakeArm 
 {
@@ -65,6 +64,11 @@ public class IntakeArm
 		}
 		target = ARM_POT_LOW + (ARM_POT_HIGH - ARM_POT_LOW) / 6 * position;
 		Common.debug("IntakeArm: SetIntakePosition: Set arm target" +target);
+	}
+	public void update(){
+		if(limit.get()){
+			intake.set(0);
+		}
 	}
 	
 }

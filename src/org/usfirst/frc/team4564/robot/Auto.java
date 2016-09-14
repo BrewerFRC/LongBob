@@ -7,7 +7,7 @@ public class Auto {
 	public int paramStartingPlatform;
 	public int paramDefenseType;	
 	public int driveState;
-	public int autoRunState;
+	public int autoRunState = 1;
 		
 	//autoRunDefense parameter constants
 	private static final int DEFENSE_LOWBAR = 1;
@@ -94,18 +94,22 @@ public class Auto {
 		//ROUGH TERRAIN
 			case DEFENSE_ROUGH_TERRAIN:
 				switch(driveState) {
-					case NOT_DRIVING:
-						dt.setDriveSpeed(-0.40);
-						driveTime = Common.time() + 3000;
-						if (Common.time() >= driveTime) {
-							driveState = DEFENSE_CROSSED;
-						}
-						break;
-										
-					case DEFENSE_CROSSED:
-						defenseCleared = true;
-						break;
-				}
+				case NOT_DRIVING:
+					//Input arm move down when applicable
+					dt.setDriveSpeed(-0.70);
+					driveTime = Common.time() + 3000;
+					driveState = DRIVING;
+					break;
+				
+				case DRIVING:
+					//if (arm.moveCompleted()) {
+					if (Common.time() >= driveTime) {
+						driveState = DEFENSE_CROSSED;
+					}
+					break;
+				case DEFENSE_CROSSED:
+					defenseCleared = true;
+					break;				}
 				break;
 			
 			//LOWBAR
@@ -113,16 +117,18 @@ public class Auto {
 				switch(driveState) {
 					case NOT_DRIVING:
 						//Input arm move down when applicable
-						driveState = LOWER_ARM;
+						dt.setDriveSpeed(-0.70);
+						driveTime = Common.time() + 3000;
+						driveState = DRIVING;
 						break;
 					
-					case LOWER_ARM:
+					case DRIVING:
 						//if (arm.moveCompleted()) {
-						dt.setDriveSpeed(-0.40);
-						driveTime = Common.time() + 3000;
 						if (Common.time() >= driveTime) {
 							driveState = DEFENSE_CROSSED;
 						}
+						break;
+
 					case DEFENSE_CROSSED:
 						defenseCleared = true;
 						break;
@@ -133,52 +139,67 @@ public class Auto {
 			//MOAT
 			case DEFENSE_MOAT:
 				switch(driveState) {
-					case NOT_DRIVING:
-						//Lower arm when applicable
-						dt.setDriveSpeed(0.70);
-						driveTime = Common.time() + 3000;
-						if (Common.time() >= driveTime) {
-							driveState = DEFENSE_CROSSED;
-						}
-						break;
-					
-					case DEFENSE_CROSSED:
-						defenseCleared = true;
-						break;
+				case NOT_DRIVING:
+					//Input arm move down when applicable
+					dt.setDriveSpeed(-0.70);
+					driveTime = Common.time() + 3000;
+					driveState = DRIVING;
+					break;
+				
+				case DRIVING:
+					//if (arm.moveCompleted()) {
+					if (Common.time() >= driveTime) {
+						driveState = DEFENSE_CROSSED;
+					}
+					break;
+				case DEFENSE_CROSSED:
+					defenseCleared = true;
+					break;
 				}
 				break;
 				
 			//ROCK WALL
 			case DEFENSE_ROCK_WALL:
 				switch(driveState) {
-					case NOT_DRIVING:
-					//lower arm when applicable
-						dt.setDriveSpeed(0.70);
-						driveTime = Common.time() + 3000;
-						if (Common.time() >= driveTime) {
-							driveState = DEFENSE_CROSSED;
-						}
-						break;
-
-					case DEFENSE_CROSSED:
-						defenseCleared = true;
-						break;
+				case NOT_DRIVING:
+					//Input arm move down when applicable
+					dt.setDriveSpeed(-0.70);
+					driveTime = Common.time() + 3000;
+					driveState = DRIVING;
+					break;
+				
+				case DRIVING:
+					//if (arm.moveCompleted()) {
+					if (Common.time() >= driveTime) {
+						driveState = DEFENSE_CROSSED;
+					}
+					break;
+				case DEFENSE_CROSSED:
+					defenseCleared = true;
+					break;
 				}
+				
 				break;
 				
 			//RAMPARTS
 			case DEFENSE_RAMPARTS:
 				switch(driveState) {
-					case NOT_DRIVING:
-						dt.setDriveSpeed(0.70);
-						driveTime = Common.time() + 3000;
-						if (Common.time() >= driveTime) {
-							driveState = DEFENSE_CROSSED;
-						}
-						
-					case DEFENSE_CROSSED:
-						defenseCleared = true;
-						break;
+				case NOT_DRIVING:
+					//Input arm move down when applicable
+					dt.setDriveSpeed(-0.70);
+					driveTime = Common.time() + 3000;
+					driveState = DRIVING;
+					break;
+				
+				case DRIVING:
+					//if (arm.moveCompleted()) {
+					if (Common.time() >= driveTime) {
+						driveState = DEFENSE_CROSSED;
+					}
+					break;
+				case DEFENSE_CROSSED:
+					defenseCleared = true;
+					break;
 				} 
 				break;
 		} return defenseCleared;
@@ -234,7 +255,7 @@ public class Auto {
 					} else if (paramStartingPlatform == 2) {
 						heading = 60;
 					} else if (paramStartingPlatform == 3) {
-						heading = 38;
+						heading = 15;
 					} else if (paramStartingPlatform == 4) {
 						heading = 340; //was 168 
 					} else {
