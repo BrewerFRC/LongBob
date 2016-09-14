@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 
 public class Robot extends SampleRobot {
+	public static VisionTracking vision;
 	private static Robot instance;
 	private static Xbox j = new Xbox(0);
 	private static Xbox j1 = new Xbox(1);
@@ -13,32 +14,40 @@ public class Robot extends SampleRobot {
 	private DriveTrain dt;
 	private IntakeArm intake;
 	private Catapult cat;
+	private Auto auto;
 	
 
     public void robotInit() {
     	instance = this;
     	table = NetworkTable.getTable("dashTable");
     	dt = new DriveTrain();
+    	vision = new VisionTracking(dt);
     	intake = new IntakeArm();
     	cat = new Catapult();
+    	auto = new Auto(dt);
     }
 
     public void autonomous() {
-    	long delay = 0;
-    	dt.setHeadingHold(true);
-    	while (isOperatorControl() && isEnabled()) {
+    	Common.debug("Starting Auto...");
+        auto.init();
+        double matchTimer = Common.time();
+        while (isAutonomous() && isEnabled()) {
+           	//Loop delay timer
         	long time = Common.time();
-    		delay = (long)(time + (1000/Constants.REFRESH_RATE));
-    		dt.autoDrive();
+    		long delay = (long)(time + (1000/Constants.REFRESH_RATE));
     		
-
-    		//Loop wait
+    		//Perform autorun
+        	auto.autoRun();
+    		
+    		//Delay timer
     		double wait = (delay-Common.time())/1000.0;
     		if (wait < 0) {
     			wait = 0;
+    		
     		}
     		Timer.delay(wait);
-    	}
+        }
+        dt.setHeadingHold(false);
     }
 
     public void operatorControl() {
@@ -98,9 +107,15 @@ public class Robot extends SampleRobot {
     	}
     }
     
-    public NetworkTable getDashTable() {
+    public NetworkTable getDashTable() { 
+    	
     	return table;
+    	
     }
+    public Catapult getCatapult() {
+    	return cat;
+    }
+    
     
     public static Robot getInstance() {
     	return instance;

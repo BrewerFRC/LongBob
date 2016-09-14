@@ -6,8 +6,7 @@ public class Constants {
 	public static final int PWM_DRIVE_L = 0;
 	public static final int PWM_DRIVE_R = 1;
 	public static final int PWM_INTAKE_MOTOR = 7;
-	
-	//Digital IO
+
 	
 	//Analog
 	public static final int ANA_POT_ARM = 0;
@@ -17,9 +16,11 @@ public class Constants {
 	public static final double TURN_D = 0;
 	
 	public static final double REFRESH_RATE = 50;
-
+	//Digital IO
+	public static final int DIO_INTAKE_LIMIT = 0;
 	public static final int DIO_DRIVE_FR_ENCODER_A = 1;
 	public static final int DIO_DRIVE_FR_ENCODER_B = 2;
+	
 	
 	//Drive PID constants
 	public static final double DRIVE_P = 0.05;
