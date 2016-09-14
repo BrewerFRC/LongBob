@@ -32,17 +32,21 @@ public class IntakeArm
 	}
 	public void up()
 	{
-		forward.set(false);
-		backward.set(true);
-	}
-	public void down()
-	{
 		forward.set(true);
 		backward.set(false);
 	}
+	public void down()
+	{
+		forward.set(false);
+		backward.set(true);
+	}
 	public void intake(double power)
 	{
-		if ( (power > 0) &&  (limit.get()) ) intake.set(power);
+		if ( (power > 0) &&  (limit.get()) ) {
+			intake.set(0);
+		}else{
+			intake.set(power);
+		}
 	}
 	public void stopMotor()
 	{
