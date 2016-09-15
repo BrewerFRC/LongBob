@@ -86,16 +86,18 @@ public class Robot extends SampleRobot {
 			else {
 				cat.reset();
 			}
-			
 			//Intake arm
-			if (j.dpadUp()) {
+			if (j.rightY()<-.7) {
 				intake.up();
+				intake.intake(0.3);
 			}
-			else if (j.dpadDown()) {
+			else if (j.rightY()>.7) {
 				intake.down();
+				intake.intake(0);
 			}
 			else {
 				intake.stop();
+				intake.intake(0);
 			}
     		Common.dashNum("encoderA", dt.getEncoder().getRaw());
     		//Loop wait
