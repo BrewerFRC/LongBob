@@ -59,15 +59,7 @@ public class Robot extends SampleRobot {
     		delay = (long)(time + (1000/Constants.REFRESH_RATE));
         	
 			dt.baseDrive(-j.leftY(), j.leftX());
-			//Toggle intake
-//			if(j.whenA())
-//			{
-//				a = !a;
-//			}
-//			if(j.whenB() && a == false)
-//			{
-//				b = !b;
-//			}
+
 			if(j.A()) {
 				intake.intake(.8);
 			}else if(j.B())
@@ -93,10 +85,6 @@ public class Robot extends SampleRobot {
 			}
 			else if (j.rightY()>.7) {
 				intake.down();
-				intake.intake(0);
-			}
-			else {
-				intake.stop();
 				intake.intake(0);
 			}
     		Common.dashNum("encoderA", dt.getEncoder().getRaw());
