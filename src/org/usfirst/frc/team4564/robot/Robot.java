@@ -61,10 +61,10 @@ public class Robot extends SampleRobot {
 			dt.baseDrive(-j.leftY(), j.leftX());
 
 			if(j.A()) {
-				intake.intake(.8);
+				intake.intake(.9);
 			}else if(j.B())
 			{
-				intake.intake(-.8);
+				intake.intake(-.9);
 			}
 			else {
 				intake.stopMotor();
