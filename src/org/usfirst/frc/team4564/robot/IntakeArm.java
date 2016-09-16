@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4564.robot;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Spark;
 
@@ -9,6 +10,7 @@ public class IntakeArm
 	private Solenoid forward;
 	private Solenoid backward;
 	private Spark intake;
+	private DigitalInput limit;
 	
 	private static final double ARM_POT_LOW = 1;
 	private static final double ARM_POT_HIGH = 3;
@@ -25,21 +27,26 @@ public class IntakeArm
 		forward= new Solenoid(Constants.SOL_INTAKE_FORWARD);
 		backward= new Solenoid(Constants.SOL_INTAKE_BACKWARD);
 		intake = new Spark(Constants.PWM_INTAKE_MOTOR);
+		limit = new DigitalInput(Constants.DIO_INTAKE_LIMIT);
 		
 	}
 	public void up()
 	{
-		forward.set(false);
-		backward.set(true);
-	}
-	public void down()
-	{
 		forward.set(true);
 		backward.set(false);
 	}
+	public void down()
+	{
+		forward.set(false);
+		backward.set(true);
+	}
 	public void intake(double power)
 	{
-		intake.set(power);
+		if ( (power > 0) &&  (limit.get()) ) {
+			intake.set(0);
+		}else{
+			intake.set(power);
+		}
 	}
 	public void stopMotor()
 	{
@@ -61,5 +68,11 @@ public class IntakeArm
 		}
 		target = ARM_POT_LOW + (ARM_POT_HIGH - ARM_POT_LOW) / 6 * position;
 		Common.debug("IntakeArm: SetIntakePosition: Set arm target" +target);
+	}
+	
+	public void update(){
+		if(limit.get()){
+			intake.set(0);
+		}
 	}
 }
