@@ -62,5 +62,4 @@ public class IntakeArm
 		target = ARM_POT_LOW + (ARM_POT_HIGH - ARM_POT_LOW) / 6 * position;
 		Common.debug("IntakeArm: SetIntakePosition: Set arm target" +target);
 	}
-	
 }
