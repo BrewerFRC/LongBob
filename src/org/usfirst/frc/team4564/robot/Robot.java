@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 public class Robot extends SampleRobot {
 	public static VisionTracking vision;
 	private static Robot instance;
-	private static Xbox j = new Xbox(0);
+	private static Xbox j0 = new Xbox(0);
 	private static Xbox j1 = new Xbox(1);
 	private static NetworkTable table;
 	private DriveTrain dt;
@@ -55,6 +55,13 @@ public class Robot extends SampleRobot {
     	boolean a = false,b = false;
     	long delay = 0;
     	while (isOperatorControl() && isEnabled()) {
+    		Xbox j;
+    		if (j0.X()) {
+    			j = j1;
+    		}
+    		else {
+    			j = j0;
+    		}
         	long time = Common.time();
     		delay = (long)(time + (1000/Constants.REFRESH_RATE));
         	
@@ -71,10 +78,17 @@ public class Robot extends SampleRobot {
 			}
 			//intake.update();
 			//Catapult
-			if(j.Y() && j.rightTriggerPressed())
+			if(j1.Y() && j1.rightTriggerPressed())
 			{
-				cat.fire();
+				if (!j0.Y()) {
+					cat.fire();
+				}
 			} 
+			else if (j0.Y() && j0.rightTriggerPressed()) {
+				if (!j1.Y()) {
+					cat.fire();
+				}
+			}
 			else {
 				cat.reset();
 			}
@@ -86,6 +100,9 @@ public class Robot extends SampleRobot {
 			else if (j.rightY()>.7) {
 				intake.down();
 				intake.intake(0);
+			}
+			else {
+				intake.stop();
 			}
     		Common.dashNum("encoderA", dt.getEncoder().getRaw());
     		//Loop wait
