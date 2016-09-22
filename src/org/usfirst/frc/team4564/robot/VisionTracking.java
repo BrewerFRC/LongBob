@@ -43,7 +43,8 @@ public class VisionTracking {
 		// Is it time to shoot or keep aiming?
 		speed = -0.3;
 		boolean thrown = false;
-		if (shoot ) {    // If we are aligned and not driving and...
+		if (shoot) {    // If we are aligned and not driving and...
+				Robot.vision.takePicture();
 				Robot.getInstance().getCatapult().fire();
 				thrown = true;
 

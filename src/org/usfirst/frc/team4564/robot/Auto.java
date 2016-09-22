@@ -30,6 +30,7 @@ public class Auto {
 
 	
 	public static final int NOT_DRIVING = 0;					//Ready to start
+	public static final int ARM_DOWN = 8;
 	public static final int DRIVING = 1;						//Move robot through or to defense, if moving through defense, wait to see exit.
 	public static final int DEFENSE_CROSSED = 2;				//Robot cleared shield and now stopped.
 	public static final int LOWER_ARM = 3;						//Wait for arm to reach a position
@@ -96,11 +97,10 @@ public class Auto {
 				switch(driveState) {
 				case NOT_DRIVING:
 					//Input arm move down when applicable
-					dt.setDriveSpeed(-0.70);
-					driveTime = Common.time() + 3000;
+					Robot.getInstance().getIntake().down();
 					driveState = DRIVING;
+					this.driveTime = Common.time() + 3000;
 					break;
-				
 				case DRIVING:
 					//if (arm.moveCompleted()) {
 					if (Common.time() >= driveTime) {
@@ -117,18 +117,24 @@ public class Auto {
 				switch(driveState) {
 					case NOT_DRIVING:
 						//Input arm move down when applicable
-						dt.setDriveSpeed(-0.70);
-						driveTime = Common.time() + 3000;
-						driveState = DRIVING;
+						Robot.getInstance().getIntake().down();
+						driveState = ARM_DOWN;
+						this.lowerTime = Common.time() + 3000;
 						break;
-					
+					case ARM_DOWN:
+						if (Common.time() >= this.lowerTime) {
+							Robot.getInstance().getIntake().stop();
+							dt.setDriveSpeed(-0.70);
+							driveTime = Common.time() + 3000;
+							driveState = DRIVING;
+						}
+						break;
 					case DRIVING:
 						//if (arm.moveCompleted()) {
 						if (Common.time() >= driveTime) {
 							driveState = DEFENSE_CROSSED;
 						}
 						break;
-
 					case DEFENSE_CROSSED:
 						defenseCleared = true;
 						break;
@@ -139,22 +145,21 @@ public class Auto {
 			//MOAT
 			case DEFENSE_MOAT:
 				switch(driveState) {
-				case NOT_DRIVING:
-					//Input arm move down when applicable
-					dt.setDriveSpeed(-0.70);
-					driveTime = Common.time() + 3000;
-					driveState = DRIVING;
-					break;
-				
-				case DRIVING:
-					//if (arm.moveCompleted()) {
-					if (Common.time() >= driveTime) {
-						driveState = DEFENSE_CROSSED;
-					}
-					break;
-				case DEFENSE_CROSSED:
-					defenseCleared = true;
-					break;
+					case NOT_DRIVING:
+						//Input arm move down when applicable
+						Robot.getInstance().getIntake().down();
+						driveState = DRIVING;
+						this.driveTime = Common.time() + 3000;
+						break;
+					case DRIVING:
+						//if (arm.moveCompleted()) {
+						if (Common.time() >= driveTime) {
+							driveState = DEFENSE_CROSSED;
+						}
+						break;
+					case DEFENSE_CROSSED:
+						defenseCleared = true;
+						break;
 				}
 				break;
 				
@@ -275,12 +280,10 @@ public class Auto {
 				break;
 				
 			case AUTO_SHOOT:
-				
 					if (Robot.vision.autoAim()) {
 						Common.debug("autoRun: AUTO_SHOOT Ball thrown");
 						autoRunState = AUTO_COMPLETE;
 					}
-			
 				break;
 				
 				

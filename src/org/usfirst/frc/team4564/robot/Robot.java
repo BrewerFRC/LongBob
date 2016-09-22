@@ -122,6 +122,9 @@ public class Robot extends SampleRobot {
     public Catapult getCatapult() {
     	return cat;
     }
+    public IntakeArm getIntake() {
+    	return intake;
+    }
     
     
     public static Robot getInstance() {
