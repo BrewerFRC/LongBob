@@ -56,16 +56,31 @@ public class Robot extends SampleRobot {
     	long delay = 0;
     	while (isOperatorControl() && isEnabled()) {
     		Xbox j;
-    		if (j0.X()) {
-    			j = j1;
-    		}
-    		else {
-    			j = j0;
-    		}
         	long time = Common.time();
     		delay = (long)(time + (1000/Constants.REFRESH_RATE));
         	
-			dt.baseDrive(-j.leftY(), j.leftX());
+    		//driving
+    		if ( Math.abs(j0.leftX()) > 0 || Math.abs(j0.leftY()) > 0){
+    
+    			j = j0;
+    		}
+    		else {
+    			j = j1;
+    		}
+
+    		if(j == j0){
+				dt.baseDrive(-j.leftY(), j.leftX());
+    		}else{
+				dt.baseDrive(j.leftY(), j.leftX());
+    		}
+
+    		//intake
+    		if ( j0.A() || j0.B()){
+    			j = j0;
+    		}
+    		else {
+    			j = j1;
+    		}
 
 			if(j.A()) {
 				intake.intake(.9);
@@ -76,7 +91,6 @@ public class Robot extends SampleRobot {
 			else {
 				intake.stopMotor();
 			}
-			//intake.update();
 			//Catapult
 			if(j1.Y() && j1.rightTriggerPressed())
 			{
@@ -93,6 +107,12 @@ public class Robot extends SampleRobot {
 				cat.reset();
 			}
 			//Intake arm
+    		if ( Math.abs(j0.rightY()) > .7){
+    			j = j0;
+    		}
+    		else {
+    			j = j1;
+    		}
 			if (j.rightY()<-.7) {
 				intake.up();
 				intake.intake(0.3);
