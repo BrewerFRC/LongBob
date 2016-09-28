@@ -254,6 +254,11 @@ public class Auto {
 				break;
 				
 			case AUTO_ROTATE_TO_GOAL:
+				Common.debug("-------------------------");
+				Common.debug("Starting Auto rotate");
+				Common.debug("Encoder Distance :" + dt.getEncoder().get() + ":" + dt.getEncoder().getDistance());
+				Common.debug("PID target :" + dt.distancePID.getTarget());
+				Common.debug("-------------------------");
 				if (dt.driveComplete()) {
 					if (paramStartingPlatform == 1) {
 						heading = 60;

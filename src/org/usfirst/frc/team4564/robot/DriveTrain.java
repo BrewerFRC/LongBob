@@ -14,7 +14,7 @@ public class DriveTrain extends RobotDrive {
 	private Encoder encoder; 
 	
 	//Distance PID
-	private PID distancePID; 
+	public PID distancePID; 
 	
 	//Gyro definition
 	private Heading heading;
@@ -55,6 +55,7 @@ public class DriveTrain extends RobotDrive {
 	// Initialize drivetrain systems
 	public void init() {
 		encoder.setDistancePerPulse(1.0/Constants.COUNTS_PER_INCH);
+		encoder.setReverseDirection(true);
 		encoder.reset();
 		heading.reset();
 		distancePID.setMin(-0.60);

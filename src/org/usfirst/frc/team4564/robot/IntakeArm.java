@@ -70,6 +70,10 @@ public class IntakeArm
 		Common.debug("IntakeArm: SetIntakePosition: Set arm target" +target);
 	}
 	
+	public boolean ballLoaded()
+	{
+		return limit.get();
+	}
 	public void update(){
 		if(limit.get()){
 			intake.set(0);
