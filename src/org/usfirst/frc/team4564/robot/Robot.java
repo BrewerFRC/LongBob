@@ -57,79 +57,70 @@ public class Robot extends SampleRobot {
 			long time = Common.time();
 			delay = (long) (time + (1000 / Constants.REFRESH_RATE));
 
-			// driving
-			if (Math.abs(j0.leftX()) > 0 || Math.abs(j0.leftY()) > 0) {
-
-				j = j0;
-			} else {
-				j = j1;
-			}
-
-			if (j == j0) {
-				dt.baseDrive(-j.leftY(), j.leftX());
-			} else {
-				dt.baseDrive(j.leftY(), j.leftX());
-			}
-
-			// intake
-			if (j0.A() || j0.B()) {
-				j = j0;
-			} else {
-				j = j1;
-			}
-
-			if (j.A()) {
-				intake.intake(.9);
-			} else if (j.B()) {
-				intake.intake(-.9);
-			} else {
-				intake.stopMotor();
-			}
-			// Catapult
-			if (!intake.ballLoaded()) {
-				if (j1.Y() && j1.rightTriggerPressed()) {
-					if (!j0.Y()) {
-						cat.fire();
-					}
-				} else if (j0.Y() && j0.rightTriggerPressed()) {
-					if (!j1.Y()) {
-						cat.fire();
-					} 
-				}else{
-					cat.reset();
-				}
-			}else{
-				cat.reset();
-			}
-
 			// Auto aim
 			if (j0.leftTriggerPressed() || j1.leftTriggerPressed()) {
 				vision.autoAim();
-			}
-			// Intake arm
-			if (Math.abs(j0.rightY()) > .7) {
-				j = j0;
+				dt.autoDrive();
 			} else {
-				j = j1;
+				// driving
+				if (Math.abs(j0.leftX()) > 0 || Math.abs(j0.leftY()) > 0) {
+
+					j = j0;
+				} else {
+					j = j1;
+				}
+
+				if (j == j0) {
+					dt.baseDrive(-j.leftY(), j.leftX());
+				} else {
+					dt.baseDrive(j.leftY(), j.leftX());
+				}
+
+				// intake
+				if (j0.A() || j0.B()) {
+					j = j0;
+				} else {
+					j = j1;
+				}
+
+				if (j.A()) {
+					intake.intake(.9);
+				} else if (j.B()) {
+					intake.intake(-.9);
+				} else {
+					intake.stopMotor();
+				}
+				// Catapult
+				if ((j1.Y() && j1.rightTriggerPressed()) || (j0.Y() && j0.rightTriggerPressed())) {
+					cat.fire();
+				}
+				cat.update();
+
+				// Intake arm
+				if (Math.abs(j0.rightY()) > .7) {
+					j = j0;
+				} else {
+					j = j1;
+				}
+				if (j.rightY() < -.7) {
+					intake.up();
+					intake.intake(0.4);
+				} else if (j.rightY() > .7) {
+					intake.down();
+					intake.intake(0);
+				} else {
+					intake.stop();
+				}
+				Common.dashNum("encoderA", dt.getEncoder().getRaw());
 			}
-			if (j.rightY() < -.7) {
-				intake.up();
-				intake.intake(0.4);
-			} else if (j.rightY() > .7) {
-				intake.down();
-				intake.intake(0);
-			} else {
-				intake.stop();
-			}
-			Common.dashNum("encoderA", dt.getEncoder().getRaw());
 			// Loop wait
 			double wait = (delay - Common.time()) / 1000.0;
 			if (wait < 0) {
 				wait = 0;
 			}
 			Timer.delay(wait);
-		}
 
+		}
 	}
 
 	public NetworkTable getDashTable() {

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4564.robot;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class VisionTracking {
 	NetworkTable visionTable;
@@ -17,7 +18,8 @@ public class VisionTracking {
 	}
 
 	public boolean autoAim() {
-		dt.setHeadingHold(false);		//Aiming requires that heading hold be off
+//		dt.setHeadingHold(false);		//Aiming requires that heading hold be off
+		dt.setHeadingHold(true);		//Aiming requires that heading hold be off
 		double distance;				//Distance from tower, measured by ultrasonic.
 		double speed;					//The speed at which to move to/from tower to get proper distance for shot
 		boolean shoot;					//True when targeting computer issues '999' response
@@ -25,6 +27,7 @@ public class VisionTracking {
 		
 		// Process targeting computer data
 		double targetingData = visionTable.getNumber("targetTurn", 0);  
+    	SmartDashboard.putNumber("TargetingData", targetingData);
 		if (targetingData == 999) {
 			shoot = true;
 			turn = 0;
@@ -33,7 +36,7 @@ public class VisionTracking {
 			if (counter % 6 < 2) { 		//If not aligned for shot, pulse the turn rate between full power and 1/3 power
 				turn = targetingData;
 			} else {
-				turn = targetingData * 0.3;
+				turn = targetingData * 0.7;
 			}
 			counter++;			
 		}
@@ -41,7 +44,7 @@ public class VisionTracking {
 		// Drive forward/backward until proper distance from tower
 		// ***** Insert Ultrasonic logic here
 		// Is it time to shoot or keep aiming?
-		speed = -0.3;
+		speed = -0.4;
 		boolean thrown = false;
 		if (shoot) {    // If we are aligned and not driving and...
 				Robot.vision.takePicture();
