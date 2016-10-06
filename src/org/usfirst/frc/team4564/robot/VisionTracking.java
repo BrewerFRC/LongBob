@@ -28,15 +28,16 @@ public class VisionTracking {
 		// Process targeting computer data
 		double targetingData = visionTable.getNumber("targetTurn", 0);  
     	SmartDashboard.putNumber("TargetingData", targetingData);
-		if (targetingData == 999) {
-			shoot = true;
+		if (targetingData == 999)  {
+//			shoot = true;
+			shoot = false;
 			turn = 0;
 		} else {
 			shoot = false;
 			if (counter % 6 < 2) { 		//If not aligned for shot, pulse the turn rate between full power and 1/3 power
-				turn = targetingData;
+				turn = targetingData*0.9;
 			} else {
-				turn = targetingData * 0.7;
+				turn = targetingData * 0.4;
 			}
 			counter++;			
 		}
