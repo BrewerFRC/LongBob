@@ -14,8 +14,9 @@ public class PID {
 	 */
 	private boolean forward;
 	private double target;
+	private double Outmin;
+	private double Outmax;
 	private double min;
-	private double max;
 	private long deltaTime;
 	private double previousError;
 	private double sumError;
@@ -42,11 +43,12 @@ public class PID {
 		this.d = robot.getDashTable().getNumber(name + "D", this.d);
 	}
 	
+	public void setOutputLimits(double min, double max){
+		this.Outmin = min;
+		this.Outmax = max;
+	}
 	public void setMin(double min) {
 		this.min = min;
-	}
-	public void setMax(double max) {
-		this.max = max;
 	}
 	public double getTarget() {
 		return this.target;
@@ -76,6 +78,7 @@ public class PID {
 		//Integral calculation
 		double error = input - target;
 		sumError += error * deltaTime;
+		int sign = -1;
 		
 		//Derivative calculation
 		double derivative = (error - previousError) / deltaTime;
@@ -83,7 +86,13 @@ public class PID {
 		
 		//Calculate output
 		double output = p*error + i*sumError + d*derivative;
-		output = Math.min(Math.max(output, min), max);
+		if(output>0) 
+			sign = 1;
+		output = Math.abs(output)+ min;
+		output *= sign;
+		output = Math.min(Math.max(output, Outmin), Outmax);
+		
+
 		if (forward) {
 			this.output += output;
 		}

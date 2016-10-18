@@ -17,7 +17,7 @@ public class DriveTrain extends RobotDrive {
 	public PID distancePID; 
 	
 	//Gyro definition
-	private Heading heading;
+	public Heading heading;
 	
 	//Object to handle tracking and controlling current autonomous actions.
 	private ActionHandler actionHandler = new ActionHandler();
@@ -58,8 +58,7 @@ public class DriveTrain extends RobotDrive {
 		encoder.setReverseDirection(true);
 		encoder.reset();
 		heading.reset();
-		distancePID.setMin(-0.60);
-		distancePID.setMax(0.60);
+		distancePID.setOutputLimits(-0.6, 0.6);
 		actionHandler = new ActionHandler();
 		//setDriveSpeed(0);
 		//baseDrive(0, 0);

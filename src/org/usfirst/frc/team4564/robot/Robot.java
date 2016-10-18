@@ -3,6 +3,7 @@ package org.usfirst.frc.team4564.robot;
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends SampleRobot {
 	public static VisionTracking vision;
@@ -50,7 +51,7 @@ public class Robot extends SampleRobot {
 
 	public void operatorControl() {
 		dt.init();
-		boolean a = false, b = false;
+		boolean a = false, b = false, firstVision = false;
 		long delay = 0;
 		while (isOperatorControl() && isEnabled()) {
 			Xbox j;
@@ -59,9 +60,12 @@ public class Robot extends SampleRobot {
 
 			// Auto aim
 			if (j0.leftTriggerPressed() || j1.leftTriggerPressed()) {
+				if(!firstVision) vision.Tracking.reset();
+				firstVision = true;
 				vision.autoAim();
 				dt.autoDrive();
 			} else {
+				firstVision = false;
 				// driving
 				if (Math.abs(j0.leftX()) > 0 || Math.abs(j0.leftY()) > 0) {
 
@@ -127,6 +131,9 @@ public class Robot extends SampleRobot {
 
 		return table;
 
+	}
+	public DriveTrain getDriveTrain(){
+		return dt;
 	}
 
 	public Catapult getCatapult() {
