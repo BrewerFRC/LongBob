@@ -14,8 +14,8 @@ public class PID {
 	 */
 	private boolean forward;
 	private double target;
-	private double Outmin;
-	private double Outmax;
+	private double Outmin = -1;
+	private double Outmax = 1;
 	private double min;
 	private long deltaTime;
 	private double previousError;
@@ -100,6 +100,7 @@ public class PID {
 			this.output = output;
 		}
 		lastCalc = this.output;
+		//Common.debug(this.name + "PID_OUT" + this.output );
 		return this.output;
 	}
 }

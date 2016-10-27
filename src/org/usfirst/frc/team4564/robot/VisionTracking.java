@@ -84,7 +84,9 @@ public class VisionTracking {
 		// Move the robot as necessary
 		dt.setDriveSpeed(speed);
 		if (turn > 0) {
-			turn *= 1.02;
+			turn *= 1.05;
+		}else{
+			turn *=1.1;
 		}
 		dt.setTurnSpeed(turn);
 

@@ -26,7 +26,7 @@ public class Constants {
 	public static final double DRIVE_P = 0.05;
 	public static final double DRIVE_I = 0.0;
 	public static final double DRIVE_D = -0.05;
-	public static final double COUNTS_PER_INCH = -85.98; //83.39;
+	public static final double COUNTS_PER_INCH = 85.090; //83.39;
 	
 	//Gyro constants
 	public static double GYRO_P = 0.08; 

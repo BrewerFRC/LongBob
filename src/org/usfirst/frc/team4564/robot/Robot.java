@@ -45,6 +45,8 @@ public class Robot extends SampleRobot {
 
 			}
 			Timer.delay(wait);
+			Common.dashNum("encoderA", dt.getEncoder().getRaw());
+			Common.dashNum("encoderINCHES", dt.getEncoder().getDistance());
 		}
 		dt.setHeadingHold(false);
 	}
@@ -116,6 +118,7 @@ public class Robot extends SampleRobot {
 					intake.stop();
 				}
 				Common.dashNum("encoderA", dt.getEncoder().getRaw());
+				Common.dashNum("encoderINCHES", dt.getEncoder().getDistance());
 			}
 			// Loop wait
 			double wait = (delay - Common.time()) / 1000.0;

@@ -124,14 +124,13 @@ public class Auto {
 					case ARM_DOWN:
 						if (Common.time() >= this.lowerTime) {
 							Robot.getInstance().getIntake().stop();
-							dt.setDriveSpeed(-0.70);
-							driveTime = Common.time() + 3000;
+							dt.driveDistance(-(84.5+48+3));
 							driveState = DRIVING;
 						}
 						break;
 					case DRIVING:
 						//if (arm.moveCompleted()) {
-						if (Common.time() >= driveTime) {
+						if (dt.driveComplete()) {
 							driveState = DEFENSE_CROSSED;
 						}
 						break;

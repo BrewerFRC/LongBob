@@ -77,7 +77,8 @@ public class DriveTrain extends RobotDrive {
 			this.heading.setHeading(heading);
 			actionHandler.setTargetReachedFunction(
 				() -> {
-					boolean complete = Math.abs(this.heading.getTargetAngle() - this.heading.getAngle()) <= 1;
+					boolean complete = Math.abs(this.heading.getTargetAngle() - this.heading.getAngle()) <= 3;
+					Common.debug("Rotation" + Math.abs(this.heading.getTargetAngle() - this.heading.getAngle()));
 					if (!complete) {
 						actionHandler.setTurning(true);
 					}
