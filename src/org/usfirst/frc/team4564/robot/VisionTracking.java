@@ -57,7 +57,7 @@ public class VisionTracking {
 			} else {
 				shoot_count = 0;
 			}
-			if (shoot_count > 15) {
+			if (shoot_count >10) {
 				shoot = true;
 				turn = 0;
 				shoot_count = 0;
@@ -83,11 +83,11 @@ public class VisionTracking {
 
 		// Move the robot as necessary
 		dt.setDriveSpeed(speed);
-		if (turn > 0) {
-			turn *= 1.05;
-		}else{
-			turn *=1.1;
-		}
+//		if (turn > 0) {
+//			turn *= 0.95;
+//		}else{
+//			turn *=1.125;
+//		}
 		dt.setTurnSpeed(turn);
 
 		return thrown;

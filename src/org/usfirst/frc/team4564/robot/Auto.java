@@ -55,7 +55,7 @@ public class Auto {
 	public long driveTime; 					//drive time
 	public long lowerTime;
 	public double xAbs;              	    //Absolute x position of the robot after clearing a defense. 
-	public double yAbs = 56;			    //Inches from defensive line to center of robot, courtyard side
+//	public double yAbs = 56;			    //Inches from defensive line to center of robot, courtyard side
 	public double xTargetCenter;      		//Inches to center of target platform relative to left wall.
 	public double xDistanceToTarget;   		//Inches to target platform relative from center of robot.
 	public double xDistanceToCastleCenter;  //Inches to castle center relative to robot center
@@ -236,15 +236,15 @@ public class Auto {
 			
 			case AUTO_ALIGN:
 				if (paramStartingPlatform == 1) {
-					distance = 108 - yAbs;
+					distance = 18*12-135;
 				} else if (paramStartingPlatform == 2) {
-					distance = 139 - yAbs;
+					distance = 18*12-135;
 				} else if (paramStartingPlatform == 3) {
 					distance = 0;
 				} else if (paramStartingPlatform == 4) {
 					distance = 0;
 				} else {
-					distance = 151 - yAbs;
+					distance = 151;
 				}
 				distance *= -1;
 				Common.debug("autoRun: Starting goal line approach "  + distance);
@@ -260,13 +260,13 @@ public class Auto {
 				Common.debug("-------------------------");
 				if (dt.driveComplete()) {
 					if (paramStartingPlatform == 1) {
-						heading = 60;
+						heading = 20;
 					} else if (paramStartingPlatform == 2) {
-						heading = 60;
+						heading = 30;
 					} else if (paramStartingPlatform == 3) {
 						heading = 15;
 					} else if (paramStartingPlatform == 4) {
-						heading = 340; //was 168 
+						heading = 168; //was 168 
 					} else {
 						heading = 300;
 					}

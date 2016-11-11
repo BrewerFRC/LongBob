@@ -119,6 +119,7 @@ public class Robot extends SampleRobot {
 				}
 				Common.dashNum("encoderA", dt.getEncoder().getRaw());
 				Common.dashNum("encoderINCHES", dt.getEncoder().getDistance());
+				Common.dashNum("Heading", dt.heading.getHeading());
 			}
 			// Loop wait
 			double wait = (delay - Common.time()) / 1000.0;
