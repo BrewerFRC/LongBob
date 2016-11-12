@@ -69,6 +69,7 @@ public class Auto {
 	
 	// Prepare for auto run
 	public void init() {
+		autoRunState = AUTO_SETUP;
 		// Setup drivetrain
 		dt.init();
     	dt.setSafetyEnabled(false);
@@ -266,7 +267,7 @@ public class Auto {
 					} else if (paramStartingPlatform == 3) {
 						heading = 15;
 					} else if (paramStartingPlatform == 4) {
-						heading = 168; //was 168 
+						heading = 345; //was 168 
 					} else {
 						heading = 300;
 					}

@@ -79,7 +79,7 @@ public class Robot extends SampleRobot {
 				if (j == j0) {
 					dt.baseDrive(-j.leftY(), j.leftX());
 				} else {
-					dt.baseDrive(j.leftY(), j.leftX());
+					dt.baseDrive(-j.leftY(), j.leftX());
 				}
 
 				// intake
