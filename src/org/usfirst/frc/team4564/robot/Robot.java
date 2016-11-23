@@ -14,6 +14,7 @@ public class Robot extends SampleRobot {
 	private DriveTrain dt;
 	private IntakeArm intake;
 	private Catapult cat;
+	private Cannon can;
 	private Auto auto;
 
 	public void robotInit() {
@@ -23,6 +24,7 @@ public class Robot extends SampleRobot {
 		vision = new VisionTracking(dt);
 		intake = new IntakeArm();
 		cat = new Catapult();
+		can = new Cannon();
 		auto = new Auto(dt);
 	}
 
@@ -116,6 +118,13 @@ public class Robot extends SampleRobot {
 					intake.intake(0);
 				} else {
 					intake.stop();
+				}
+				
+				// Cannon
+				if (j0.X() || j1.X()) {
+					can.fire0();
+				} else {
+					can.reset0();
 				}
 				Common.dashNum("encoderA", dt.getEncoder().getRaw());
 				Common.dashNum("encoderINCHES", dt.getEncoder().getDistance());

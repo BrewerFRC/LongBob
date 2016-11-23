@@ -39,5 +39,9 @@ public class Constants {
 	public static int SOL_CATAPULT_1 = 7;
 	public static int SOL_INTAKE_FORWARD = 0;
 	public static int SOL_INTAKE_BACKWARD = 1;
+	
+	//Relays
+	public static int REL_CANNON_0 = 0;
+	public static int REL_CANNON_1 = 1;
 		
 }
