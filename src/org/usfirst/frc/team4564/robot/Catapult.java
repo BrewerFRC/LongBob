@@ -20,7 +20,7 @@ public class Catapult {
 		if (!(Robot.getInstance().getIntake().ballLoaded())) {
 			sol0.set(true);
 			sol1.set(true);
-			fireTime = Common.time() + 500;
+			fireTime = Common.time() + 25;
 		}
 	}
 

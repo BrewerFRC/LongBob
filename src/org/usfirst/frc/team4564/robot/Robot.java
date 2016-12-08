@@ -99,7 +99,7 @@ public class Robot extends SampleRobot {
 					intake.stopMotor();
 				}
 				// Catapult
-				if ((j1.Y() && j1.rightTriggerPressed()) || (j0.Y() && j0.rightTriggerPressed())) {
+				if ((j1.whenY() && j1.rightTriggerPressed()) || (j0.whenY() && j0.rightTriggerPressed())) {
 					cat.fire();
 				}
 				cat.update();
@@ -121,11 +121,16 @@ public class Robot extends SampleRobot {
 				}
 				
 				// Cannon
-				if (j0.X() || j1.X()) {
+				if (j0.whenLeftBumper() || j1.whenLeftBumper()) {
 					can.fire0();
 				} else {
-					can.reset0();
+					if (j0.whenRightBumper() || j1.whenRightBumper()) {
+						can.fire1();
+					}else {
+						can.reset();
+					}
 				}
+				
 				Common.dashNum("encoderA", dt.getEncoder().getRaw());
 				Common.dashNum("encoderINCHES", dt.getEncoder().getDistance());
 				Common.dashNum("Heading", dt.heading.getHeading());
