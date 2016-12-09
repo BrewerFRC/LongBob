@@ -5,34 +5,29 @@ import edu.wpi.first.wpilibj.Solenoid;
 
 
 public class Cannon {
-	private Relay can0;
-	private Relay can1;
+	private Solenoid sol0;
+	private Solenoid sol1;
 	private double fireTime;
 	
-	public Cannon() {
-		can0 = new Relay(Constants.REL_CANNON_0);
-		can1 = new Relay(Constants.REL_CANNON_1);
+	public Cannon(int pin1) {
+		sol0 = new Solenoid(pin1);
 	}
 	
-	public void reset() {
-		if(fireComplete())
-			can0.set(Relay.Value.kOff);		
+	public void fire() {
+		//if (!(Robot.getInstance().getIntake().ballLoaded())) {
+			sol0.set(true);
+			fireTime = Common.time() + 25;
+		
 	}
 
-	public void fire0() {
-		can0.set(Relay.Value.kForward);
-		fireTime = Common.time()+100;
-	}
-	
-	public void fire1(){
-		can0.set(Relay.Value.kReverse);
-		fireTime = Common.time()+100;
-	}
-	public boolean fireComplete()
-	{
-		if(fireTime < Common.time())
-			return true;
-		return false;
+	public void update() {
+		if (fireComplete()) {
+			sol0.set(false);
+		
+		}
 	}
 
+	public boolean fireComplete() {
+		return (fireTime < Common.time());
+	}
 }

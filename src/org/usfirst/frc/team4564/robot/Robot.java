@@ -13,8 +13,8 @@ public class Robot extends SampleRobot {
 	private static NetworkTable table;
 	private DriveTrain dt;
 	private IntakeArm intake;
-	private Catapult cat;
-	private Cannon can;
+	//rivate Catapult cat;
+	private Cannon can0,can1;
 	private Auto auto;
 
 	public void robotInit() {
@@ -23,8 +23,9 @@ public class Robot extends SampleRobot {
 		dt = new DriveTrain();
 		vision = new VisionTracking(dt);
 		intake = new IntakeArm();
-		cat = new Catapult();
-		can = new Cannon();
+		//cat = new Catapult();
+		can0 = new Cannon(Constants.SOL_CANNON_0);
+		can1 = new Cannon(Constants.SOL_CANNON_1);
 		auto = new Auto(dt);
 	}
 
@@ -100,9 +101,9 @@ public class Robot extends SampleRobot {
 				}
 				// Catapult
 				if ((j1.whenY() && j1.rightTriggerPressed()) || (j0.whenY() && j0.rightTriggerPressed())) {
-					cat.fire();
+					//cat.fire();
 				}
-				cat.update();
+				//cat.update();
 
 				// Intake arm
 				if (Math.abs(j0.rightY()) > .7) {
@@ -122,14 +123,15 @@ public class Robot extends SampleRobot {
 				
 				// Cannon
 				if (j0.whenLeftBumper() || j1.whenLeftBumper()) {
-					can.fire0();
-				} else {
-					if (j0.whenRightBumper() || j1.whenRightBumper()) {
-						can.fire1();
-					}else {
-						can.reset();
-					}
+					can1.fire();
+				} 
+				can1.update();
+				if (j0.whenRightBumper() || j1.whenRightBumper()) {
+					can0.fire();
+				}else {
+					can0.update();
 				}
+				
 				
 				Common.dashNum("encoderA", dt.getEncoder().getRaw());
 				Common.dashNum("encoderINCHES", dt.getEncoder().getDistance());
@@ -154,9 +156,10 @@ public class Robot extends SampleRobot {
 		return dt;
 	}
 
-	public Catapult getCatapult() {
-		return cat;
-	}
+	//public Catapult getCatapult() {
+		//return cat;
+	//}
+
 
 	public IntakeArm getIntake() {
 		return intake;

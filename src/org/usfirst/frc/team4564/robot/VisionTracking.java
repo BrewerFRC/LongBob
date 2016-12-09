@@ -76,7 +76,7 @@ public class VisionTracking {
 		boolean thrown = false;
 		if (shoot) { // If we are aligned and not driving and...
 			Robot.vision.takePicture();
-			Robot.getInstance().getCatapult().fire();
+			//Robot.getInstance().getCatapult().fire();
 			thrown = true;
 
 		}
