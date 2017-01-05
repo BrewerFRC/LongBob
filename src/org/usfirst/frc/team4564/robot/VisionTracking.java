@@ -47,7 +47,7 @@ public class VisionTracking {
 		double I_GAIN = visionTable.getNumber("I_GAIN", 0);
 		double D_GAIN = visionTable.getNumber("D_GAIN", 0);
 		Tracking.setP(P_GAIN);
-		Tracking.setI(I_GAIN);
+		Tracking.setI(I_GAIN*0.9);
 		Tracking.setD(D_GAIN);
 		double heading = Robot.getInstance().getDriveTrain().heading.getHeading() - 180;
 		SmartDashboard.putNumber("TargetingData", error);
@@ -57,7 +57,7 @@ public class VisionTracking {
 			} else {
 				shoot_count = 0;
 			}
-			if (shoot_count >10) {
+			if (shoot_count > 5) {
 				shoot = true;
 				turn = 0;
 				shoot_count = 0;
